@@ -15,6 +15,7 @@ import laboratorios_DAO.Dt_computadoras;
 import laboratorios_DAO.Dt_laboratorios;
 import laboratorios_DAO.Dt_profesores;
 import laboratorios_entities.Clases;
+import laboratorios_entities.Laboratorios;
 
 /**
  *
@@ -74,7 +75,7 @@ public class MySQL_DAO_manager implements DAOManager{
     
     public static void main(String[] args) throws SQLException, DAO_exception{
         MySQL_DAO_manager man = new MySQL_DAO_manager("localhost", "root", "1234", "laboratorios");
-        List<Clases> clases = man.getClases_interface().obtenerTodos();
-        System.out.println(clases);
+        List<Laboratorios> lab = man.getLaboratorios_interface().obtenerTodos();
+        System.out.println(lab);
     }
 }

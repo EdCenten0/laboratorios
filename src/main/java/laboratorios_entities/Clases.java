@@ -15,8 +15,13 @@ public class Clases {
     private String nombre_clase;
     private int cantidad_estudiantes_clase;
     private int cantidad_creditos;
-
+    private Long id_profesor;
+    private Long id_laboratorio;
+    private String nombre_laboratorio = null;
+    private String nombre_profesor = null;
+    
     public Clases() {
+        
     }
 
     public Clases(String codigo_clase, String nombre_clase, int cantidad_estudiantes_clase, int cantidad_creditos) {
@@ -24,8 +29,9 @@ public class Clases {
         this.nombre_clase = nombre_clase;
         this.cantidad_estudiantes_clase = cantidad_estudiantes_clase;
         this.cantidad_creditos = cantidad_creditos;
+        
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -66,11 +72,46 @@ public class Clases {
         this.cantidad_creditos = cantidad_creditos;
     }
 
+    public Long getId_profesor() {
+        return id_profesor;
+    }
+
+    public void setId_profesor(Long id_profesor) {
+        this.id_profesor = id_profesor;
+    }
+
+    public Long getId_laboratorio() {
+        return id_laboratorio;
+    }
+
+    public void setId_laboratorio(Long id_laboratorio) {
+        this.id_laboratorio = id_laboratorio;
+    }
+
+    public String getNombre_laboratorio() {
+        return nombre_laboratorio;
+    }
+
+    public void setNombre_laboratorio(String nombre_laboratorio) {
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+
+    public String getNombre_profesor() {
+        return nombre_profesor;
+    }
+
+    public void setNombre_profesor(String nombre_profesor) {
+        this.nombre_profesor = nombre_profesor;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Clases{" + "id=" + id + ", codigo_clase=" + codigo_clase + ", nombre_clase=" + nombre_clase + ", cantidad_estudiantes_clase=" + cantidad_estudiantes_clase + ", cantidad_creditos=" + cantidad_creditos + '}';
     }
 
+    
    
     
     
