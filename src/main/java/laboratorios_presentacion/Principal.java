@@ -31,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jButton1.setBorderPainted(false);
-        this.manager = manager;
+        
         
         
     }
@@ -209,7 +209,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        ;
         Laboratorios_table laboratorios_table = null;
         try {
             laboratorios_table = new Laboratorios_table(manager);
@@ -221,9 +221,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        Clases_table clases_table = new Clases_table();
+        Clases_table clases_table = null;
+        try {
+            clases_table = new Clases_table(manager);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         clases_table.setVisible(true);
-        this.dispose();
+        
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
