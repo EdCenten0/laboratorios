@@ -16,6 +16,7 @@ public class Computadoras {
     private String ram_computadora;
     private String almacenamiento_computadora;
     
+    
             
 
     public Computadoras() {
