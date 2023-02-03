@@ -60,8 +60,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -113,16 +113,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 260, 40));
 
-        jButton3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(39, 39, 39));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1f.png"))); // NOI18N
-        jButton3.setText("Profesores");
-        jButton3.setFocusPainted(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setRolloverEnabled(true);
-        jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1_pressed.png"))); // NOI18N
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 260, 40));
-
         jButton5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(39, 39, 39));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1f.png"))); // NOI18N
@@ -137,6 +127,21 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 260, 40));
+
+        jButton6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(39, 39, 39));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1f.png"))); // NOI18N
+        jButton6.setText("Profesores");
+        jButton6.setFocusPainted(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setRolloverEnabled(true);
+        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1_pressed.png"))); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 260, 40));
 
         panel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 790, 320));
 
@@ -209,7 +214,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        ;
+        
         Laboratorios_table laboratorios_table = null;
         try {
             laboratorios_table = new Laboratorios_table(manager);
@@ -232,6 +237,19 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        Profesores_table profesores_table = null;
+        
+        try {
+            profesores_table = new Profesores_table(manager);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        profesores_table.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -240,9 +258,9 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
