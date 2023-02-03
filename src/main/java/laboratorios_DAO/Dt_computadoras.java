@@ -6,7 +6,9 @@ package laboratorios_DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import laboratorios_entities.Computadoras;
 
@@ -22,7 +24,7 @@ public class Dt_computadoras implements Computadoras_interface{
     final String UPDATE = "UPDATE computadoras SET procesador_computadora = ?, ram_computadora = ?, almacenamiento_computadora = ?, id_laboratorio = ? WHERE id = ?";
     final String DELETE = "DELETE FROM computadoras WHERE id = ?";
     final String GETALL = "SELECT * FROM laboratorios.computadoras LEFT JOIN laboratorios.laboratorios ON computadoras.id_laboratorio = laboratorios.laboratorios.id;";
-    final String GETONE = "SELECT id, codigo_clase, nombre_clase, cantidad_estudiantes_clase, cantidad_creditos WHERE id = ?";  
+    final String GETONE = "SELECT * FROM laboratorios.computadoras LEFT JOIN laboratorios.laboratorios ON computadoras.id_laboratorio = laboratorios.laboratorios.id WHERE computadoras.id = ?";  
     
     private Connection conn;
     
@@ -39,6 +41,8 @@ public class Dt_computadoras implements Computadoras_interface{
             stat.setString(1, c.getProcesador_computadora());
             stat.setString(2, c.getRam_computadora());
             stat.setString(3, c.getAlmacenamiento_computadora());
+            stat.setLong(4, c.getLaboratorio_id());
+            
             
             if(stat.executeUpdate() == 0){
                throw new DAO_exception("Puede que no se haya guardado");
@@ -65,7 +69,7 @@ public class Dt_computadoras implements Computadoras_interface{
             stat.setString(1, c.getProcesador_computadora());
             stat.setString(2, c.getRam_computadora());
             stat.setString(3, c.getAlmacenamiento_computadora());
-            
+            stat.setLong(4, c.getLaboratorio_id());
             stat.setLong(5, c.getId());
             if(stat.executeUpdate()==0){
                 throw new DAO_exception("Puede que no se haya guardado");
@@ -108,8 +112,41 @@ public class Dt_computadoras implements Computadoras_interface{
     }
 
     @Override
-    public List<Computadoras> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Computadoras> obtenerTodos() throws DAO_exception {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Computadoras> c = new ArrayList<>();
+        
+        try {
+            stat = conn.prepareStatement(GETALL);
+            rs = stat.executeQuery();
+            while(rs.next()){
+                
+            }
+        } catch (SQLException e) {
+            throw new DAO_exception("Error en SQL", e);
+            
+        }finally{
+            if(rs != null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new DAO_exception("Error al cerrar la conexion de ResultSet", e);
+                    
+                }
+            }
+            
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException e) {
+                    throw new DAO_exception("Error al cerrar la conexion de PrepareStatement", e);
+                }
+            }
+        }
+        
+        return c;
+        
     }
 
     @Override

@@ -15,10 +15,32 @@ public class Computadoras {
     private String procesador_computadora;
     private String ram_computadora;
     private String almacenamiento_computadora;
-    
+    private Long laboratorio_id;
+    private String nombre_laboratorio;
             
 
     public Computadoras() {
+    }
+
+    public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora) {
+        this.procesador_computadora = procesador_computadora;
+        this.ram_computadora = ram_computadora;
+        this.almacenamiento_computadora = almacenamiento_computadora;
+    }
+
+    public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora, Long laboratorio_id, String nombre_laboratorio) {
+        this.procesador_computadora = procesador_computadora;
+        this.ram_computadora = ram_computadora;
+        this.almacenamiento_computadora = almacenamiento_computadora;
+        this.laboratorio_id = laboratorio_id;
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+
+    public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora, String nombre_laboratorio) {
+        this.procesador_computadora = procesador_computadora;
+        this.ram_computadora = ram_computadora;
+        this.almacenamiento_computadora = almacenamiento_computadora;
+        this.nombre_laboratorio = nombre_laboratorio;
     }
 
     public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora, Long id_laboratorio) {
@@ -60,6 +82,25 @@ public class Computadoras {
         this.almacenamiento_computadora = almacenamiento_computadora;
     }
 
+    public Long getLaboratorio_id() {
+        return laboratorio_id;
+    }
+
+    public void setLaboratorio_id(Long laboratorio_id) {
+        this.laboratorio_id = laboratorio_id;
+    }
+
+    public String getNombre_laboratorio() {
+        return nombre_laboratorio;
+    }
+
+    public void setNombre_laboratorio(String nombre_laboratorio) {
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+    
+    
+
+    
     
 
     @Override
