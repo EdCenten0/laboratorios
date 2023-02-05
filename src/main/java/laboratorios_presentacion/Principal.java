@@ -96,6 +96,11 @@ public class Principal extends javax.swing.JFrame {
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setRolloverEnabled(true);
         jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1_pressed.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 260, 40));
 
         jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -249,6 +254,19 @@ public class Principal extends javax.swing.JFrame {
         
         profesores_table.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Computadoras_table computadoras_table = null;
+        
+        try {
+            computadoras_table = new Computadoras_table(manager);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        computadoras_table.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
