@@ -5,6 +5,11 @@
 package laboratorios_presentacion;
 
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import laboratorios_DAO.DAO_exception;
+import laboratorios_entities.Computadoras;
 import laboratorios_interface_DAO.DAOManager;
 
 /**
@@ -15,9 +20,76 @@ public class Computadoras_table extends javax.swing.JFrame {
     
     private DAOManager managerP;
     private ComputadorasTableModel model;
+    private Computadoras computadora;
+    private boolean editable;
+
+    public Computadoras getComputadora() {
+        return computadora;
+    }
+
+    public void setComputadora(Computadoras computadora) {
+        this.computadora = computadora;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+        this.procesador.setEditable(editable);
+        this.almacenamiento.setEditable(editable);
+        this.ram.setEditable(editable);
+        this.lab_combo.setEditable(editable);
+        
+    }
     
-    public Computadoras_table() {
+    public void loadData(){
+        if(this.computadora != null){
+            procesador.setText(this.computadora.getProcesador_computadora());
+            ram.setText(this.computadora.getRam_computadora());
+            almacenamiento.setText(this.computadora.getAlmacenamiento_computadora());
+        }else{
+            procesador.setText("");
+            ram.setText("");
+            almacenamiento.setText("");
+        }
+        
+        this.procesador.requestFocus();
+    }
+    
+    public void saveData(){
+        if(this.computadora == null){
+            this.computadora = new Computadoras();
+        }
+        
+        this.computadora.setProcesador_computadora(procesador.getText());
+        this.computadora.setAlmacenamiento_computadora(almacenamiento.getText());
+        this.computadora.setRam_computadora(ram.getText());
+        
+        
+    }
+    
+    private Computadoras getComputadoraSeleccionado() throws DAO_exception{
+        Long id = (Long) table.getValueAt(table.getSelectedRow(), 0);
+        return managerP.getComputadoras_interface().obtener(id);
+    }
+    
+    
+    public Computadoras_table(DAOManager manager) throws DAO_exception {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.managerP = manager;
+        this.model = new ComputadorasTableModel(managerP.getComputadoras_interface());
+        this.model.updateModel();
+        this.table.setModel(model);
+         this.table.getSelectionModel().addListSelectionListener(e -> {
+            boolean seleccionValida = (table.getSelectedRow() != -1);
+            this.editar.setEnabled(true);
+            this.borrar.setEnabled(true);
+           
+            
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -42,7 +114,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         borrar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lab_combo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +203,11 @@ public class Computadoras_table extends javax.swing.JFrame {
         almacenamiento.setBackground(new java.awt.Color(204, 204, 204));
         almacenamiento.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         almacenamiento.setForeground(new java.awt.Color(46, 46, 46));
+        almacenamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                almacenamientoActionPerformed(evt);
+            }
+        });
         panel_principal.add(almacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 130, -1));
 
         procesador.setEditable(false);
@@ -188,8 +265,8 @@ public class Computadoras_table extends javax.swing.JFrame {
         });
         panel_principal.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panel_principal.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 190, -1));
+        lab_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panel_principal.add(lab_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,7 +303,7 @@ public class Computadoras_table extends javax.swing.JFrame {
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
         // TODO add your handling code here:
-        this.setClase(null);
+        this.setComputadora(null);
         this.loadData();
         this.setEditable(true);
         guardar.setEnabled(true);
@@ -237,8 +314,8 @@ public class Computadoras_table extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
 
-            Clases clase = getClaseSeleccionado();
-            this.setClase(clase);
+            Computadoras computadora = getComputadoraSeleccionado();
+            this.setComputadora(computadora);
             this.setEditable(true);
             this.loadData();
             this.guardar.setEnabled(true);
@@ -252,8 +329,8 @@ public class Computadoras_table extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar las clase?","Borrar Clase", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
             try {
-                Clases clase = getClaseSeleccionado();
-                managerP.getClases_interface().eliminar(clase);
+                Computadoras computadora = getComputadoraSeleccionado();
+                managerP.getComputadoras_interface().eliminar(computadora);
                 model.updateModel();
                 model.fireTableDataChanged();
             } catch (DAO_exception ex) {
@@ -267,17 +344,17 @@ public class Computadoras_table extends javax.swing.JFrame {
         // TODO add your handling code here
 
         saveData();
-        Clases clase = getClase();
+        Computadoras computadora = getComputadora();
 
-        if(clase.getId() == null){
+        if(computadora.getId() == null){
             try {
-                managerP.getClases_interface().insertar(clase);
+                managerP.getComputadoras_interface().insertar(computadora);
             } catch (DAO_exception ex) {
                 Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             try {
-                managerP.getClases_interface().modificar(clase);
+                managerP.getComputadoras_interface().modificar(computadora);
             } catch (DAO_exception ex) {
                 Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -287,7 +364,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.procesador.setText("");
         this.ram.setText("");
         this.almacenamiento.setText("");
-        this.laboratorioTextField.setText("");
+//        this.lab_combo.set
         editar.setEnabled(false);
         cancelar.setEnabled(false);
         guardar.setEnabled(false);
@@ -309,7 +386,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.procesador.setText("");
         this.ram.setText("");
         this.almacenamiento.setText("");
-        this.laboratorioTextField.setText("");
+        
         editar.setEnabled(false);
         cancelar.setEnabled(false);
         guardar.setEnabled(false);
@@ -317,6 +394,10 @@ public class Computadoras_table extends javax.swing.JFrame {
         setEditable(false);
 
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void almacenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_almacenamientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_almacenamientoActionPerformed
 
     
 
@@ -328,12 +409,12 @@ public class Computadoras_table extends javax.swing.JFrame {
     private javax.swing.JButton cancelar;
     private javax.swing.JButton editar;
     private javax.swing.JButton guardar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> lab_combo;
     private javax.swing.JButton nuevo;
     private javax.swing.JPanel panel_inf;
     private javax.swing.JPanel panel_principal;

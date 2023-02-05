@@ -15,7 +15,8 @@ public class Computadoras {
     private String procesador_computadora;
     private String ram_computadora;
     private String almacenamiento_computadora;
-    
+    private Long id_laboratorio = null;
+    private String nombre_laboratorio = null;
     
             
 
@@ -29,6 +30,41 @@ public class Computadoras {
         
     }
 
+    public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora, Long id_laboratorio, String nombre_laboratorio) {
+        this.procesador_computadora = procesador_computadora;
+        this.ram_computadora = ram_computadora;
+        this.almacenamiento_computadora = almacenamiento_computadora;
+        this.id_laboratorio = id_laboratorio;
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+
+    public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora, String nombre_laboratorio) {
+        this.procesador_computadora = procesador_computadora;
+        this.ram_computadora = ram_computadora;
+        this.almacenamiento_computadora = almacenamiento_computadora;
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+
+    public Long getId_laboratorio() {
+        return id_laboratorio;
+    }
+
+    public void setId_laboratorio(Long id_laboratorio) {
+        this.id_laboratorio = id_laboratorio;
+    }
+
+    public String getNombre_laboratorio() {
+        return nombre_laboratorio;
+    }
+
+    public void setNombre_laboratorio(String nombre_laboratorio) {
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+    
+    
+
+    
+    
     public Long getId() {
         return id;
     }
