@@ -4,6 +4,8 @@
  */
 package laboratorios_entities;
 
+import java.util.Objects;
+
 
 
 /**
@@ -121,7 +123,7 @@ public class Computadoras {
     
     @Override
     public boolean equals(Object obj){
-        return this.id_laboratorio == ((Computadoras) obj).getId_laboratorio();
+        return Objects.equals(this.id_laboratorio, ((Computadoras) obj).getId_laboratorio());
     }
    
     

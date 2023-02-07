@@ -148,6 +148,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         lab_combo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         panel_principal.setBackground(new java.awt.Color(133, 184, 229));
         panel_principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -259,6 +260,11 @@ public class Computadoras_table extends javax.swing.JFrame {
         editar.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         editar.setText("Editar");
         editar.setEnabled(false);
+        editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editarMouseClicked(evt);
+            }
+        });
         editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarActionPerformed(evt);
@@ -295,7 +301,6 @@ public class Computadoras_table extends javax.swing.JFrame {
             }
         });
         panel_principal.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
-
         panel_principal.add(lab_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -342,11 +347,12 @@ public class Computadoras_table extends javax.swing.JFrame {
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         lab_combo.removeAllItems();
-        Long indice = (Long) table.getValueAt(table.getSelectedRow(), 4);
+        
         try {
             // TODO add your handling code here:
 
             Computadoras computadora = getComputadoraSeleccionado();
+            Long indice = getComputadoraSeleccionado().getId_laboratorio();
             this.setComputadora(computadora);
             this.setEditable(true);
             this.loadData();
@@ -429,6 +435,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         cancelar.setEnabled(false);
         guardar.setEnabled(false);
         borrar.setEnabled(false);
+        lab_combo.removeAllItems();
         setEditable(false);
 
     }//GEN-LAST:event_cancelarActionPerformed
@@ -436,6 +443,11 @@ public class Computadoras_table extends javax.swing.JFrame {
     private void almacenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_almacenamientoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_almacenamientoActionPerformed
+
+    private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_editarMouseClicked
 
     
 
