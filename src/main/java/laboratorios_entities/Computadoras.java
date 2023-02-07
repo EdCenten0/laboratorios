@@ -22,6 +22,21 @@ public class Computadoras {
 
     public Computadoras() {
     }
+    
+    public Computadoras(Long id_laboratorio) {
+        this.id_laboratorio = id_laboratorio;
+    }
+    
+    
+
+    public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora) {
+        this.procesador_computadora = procesador_computadora;
+        this.ram_computadora = ram_computadora;
+        this.almacenamiento_computadora = almacenamiento_computadora;
+        
+    }
+    
+    
 
     public Computadoras(String procesador_computadora, String ram_computadora, String almacenamiento_computadora, Long id_laboratorio) {
         this.procesador_computadora = procesador_computadora;
@@ -101,9 +116,14 @@ public class Computadoras {
 
     @Override
     public String toString() {
-        return "Computadoras{" + "id=" + id + ", procesador_computadora=" + procesador_computadora + ", ram_computadora=" + ram_computadora + ", almacenamiento_computadora=" + almacenamiento_computadora +'}';
+        return this.nombre_laboratorio;
     }
-
+    
+    @Override
+    public boolean equals(Object obj){
+        return this.id_laboratorio == ((Computadoras) obj).getId_laboratorio();
+    }
+   
     
     
 //    public static class Computadora_en_laboratorio{
@@ -136,5 +156,7 @@ public class Computadoras {
 //        
 //        
 //    }
+
+
     
 }

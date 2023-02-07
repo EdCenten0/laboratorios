@@ -5,6 +5,8 @@
 package laboratorios_presentacion;
 
 import java.awt.Frame;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,8 +22,21 @@ public class Computadoras_table extends javax.swing.JFrame {
     
     private DAOManager managerP;
     private ComputadorasTableModel model;
+    private ComputadorasComboModel modelC;
     private Computadoras computadora;
     private boolean editable;
+
+    public ComputadorasComboModel getModelC() {
+        return modelC;
+    }
+
+    public void setModelC(ComputadorasComboModel modelC) throws DAO_exception {
+        this.modelC = modelC;
+        lab_combo.setModel(modelC);
+        
+    }
+    
+    
 
     public Computadoras getComputadora() {
         return computadora;
@@ -40,7 +55,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.procesador.setEditable(editable);
         this.almacenamiento.setEditable(editable);
         this.ram.setEditable(editable);
-        this.lab_combo.setEditable(editable);
+       
         
     }
     
@@ -75,6 +90,21 @@ public class Computadoras_table extends javax.swing.JFrame {
         return managerP.getComputadoras_interface().obtener(id);
     }
     
+    private void llenarComboEditar() throws DAO_exception{
+        List<Computadoras> computadorasCombo = managerP.getComputadoras_interface().obtenerTodos();
+        this.lab_combo.removeAllItems();
+        
+        for(int i = 0; i < computadorasCombo.size(); i++){
+            if(computadorasCombo.get(i).getId_laboratorio() == null){
+                lab_combo.addItem(new Computadoras(computadorasCombo.get(i).getProcesador_computadora(), computadorasCombo.get(i).getRam_computadora(), computadorasCombo.get(i).getAlmacenamiento_computadora()));
+            }else{
+                lab_combo.addItem(new Computadoras(computadorasCombo.get(i).getProcesador_computadora(), computadorasCombo.get(i).getRam_computadora(), computadorasCombo.get(i).getAlmacenamiento_computadora(), computadorasCombo.get(i).getId_laboratorio(), computadorasCombo.get(i).getNombre_laboratorio()));
+            }
+            
+        }
+    }
+    
+    
     
     public Computadoras_table(DAOManager manager) throws DAO_exception {
         initComponents();
@@ -83,6 +113,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.model = new ComputadorasTableModel(managerP.getComputadoras_interface());
         this.model.updateModel();
         this.table.setModel(model);
+        
          this.table.getSelectionModel().addListSelectionListener(e -> {
             boolean seleccionValida = (table.getSelectedRow() != -1);
             this.editar.setEnabled(true);
@@ -265,7 +296,6 @@ public class Computadoras_table extends javax.swing.JFrame {
         });
         panel_principal.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
 
-        lab_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         panel_principal.add(lab_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -311,6 +341,8 @@ public class Computadoras_table extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
+        lab_combo.removeAllItems();
+        Long indice = (Long) table.getValueAt(table.getSelectedRow(), 4);
         try {
             // TODO add your handling code here:
 
@@ -320,9 +352,15 @@ public class Computadoras_table extends javax.swing.JFrame {
             this.loadData();
             this.guardar.setEnabled(true);
             this.cancelar.setEnabled(true);
+            llenarComboEditar();
+            this.lab_combo.setSelectedItem(new Computadoras(indice));
         } catch (DAO_exception ex) {
             Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+        
     }//GEN-LAST:event_editarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
@@ -414,7 +452,7 @@ public class Computadoras_table extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> lab_combo;
+    private javax.swing.JComboBox<Computadoras> lab_combo;
     private javax.swing.JButton nuevo;
     private javax.swing.JPanel panel_inf;
     private javax.swing.JPanel panel_principal;
