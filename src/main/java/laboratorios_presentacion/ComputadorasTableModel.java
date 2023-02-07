@@ -36,7 +36,8 @@ class ComputadorasTableModel extends AbstractTableModel{
             case 1: return "Procesador";
             case 2: return "RAM";
             case 3: return "Almacenamiento";
-            case 4: return "Laboratorio";
+            case 4: return "ID del Laboratorio";
+            case 5: return "Laboratorio";
             default: return "";
         }
     }
@@ -51,7 +52,7 @@ class ComputadorasTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -62,7 +63,8 @@ class ComputadorasTableModel extends AbstractTableModel{
             case 1: return preguntado.getProcesador_computadora();
             case 2: return preguntado.getRam_computadora();
             case 3: return preguntado.getAlmacenamiento_computadora();
-            case 4: return preguntado.getNombre_laboratorio();
+            case 4: return preguntado.getId_laboratorio();
+            case 5: return preguntado.getNombre_laboratorio();
             default: return "";
         }
     }
