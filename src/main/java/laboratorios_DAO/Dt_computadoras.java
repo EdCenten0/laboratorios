@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import laboratorios_entities.Computadoras;
@@ -42,7 +43,12 @@ public class Dt_computadoras implements Computadoras_interface{
             stat.setString(1, c.getProcesador_computadora());
             stat.setString(2, c.getRam_computadora());
             stat.setString(3, c.getAlmacenamiento_computadora());
-            stat.setLong(4, c.getId_laboratorio());
+            if(c.getId_laboratorio() == null){
+                stat.setNull(4, Types.INTEGER);
+            }else{
+                stat.setLong(4, c.getId_laboratorio());
+            }
+           
             
             if(stat.executeUpdate() == 0){
                throw new DAO_exception("Puede que no se haya guardado");

@@ -82,7 +82,13 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.computadora.setProcesador_computadora(procesador.getText());
         this.computadora.setAlmacenamiento_computadora(almacenamiento.getText());
         this.computadora.setRam_computadora(ram.getText());
-        this.computadora.setId_laboratorio(lab_combo.getItemAt(lab_combo.getSelectedIndex()).getId());
+        Integer idGot = lab_combo.getSelectedIndex();
+        if(idGot == -1){
+            System.out.println("j");
+        }else{
+            this.computadora.setId_laboratorio(lab_combo.getItemAt(lab_combo.getSelectedIndex()).getId());
+        }
+        
         
         
     }
@@ -92,13 +98,21 @@ public class Computadoras_table extends javax.swing.JFrame {
         return managerP.getComputadoras_interface().obtener(id);
     }
     
-    private void llenarComboEditar() throws DAO_exception{
+    private void llenarComboEditar(boolean selected) throws DAO_exception{
         List<Laboratorios> labsCombo = managerP.getLaboratorios_interface().obtenerTodos();
         this.lab_combo.removeAllItems();
         
-        for(int i = 0; i < labsCombo.size(); i++){
+        if(selected){
+            for(int i = 0; i < labsCombo.size(); i++){
             lab_combo.addItem(new Laboratorios(labsCombo.get(i).getId(), labsCombo.get(i).getNombre_laboratorio()));
+            }
+        }else{
+            lab_combo.addItem(null);
+            for(int i = 0; i < labsCombo.size(); i++){
+            lab_combo.addItem(new Laboratorios(labsCombo.get(i).getId(), labsCombo.get(i).getNombre_laboratorio()));
+            }
         }
+        
     }
     
     
@@ -333,6 +347,12 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.setEditable(true);
         guardar.setEnabled(true);
         cancelar.setEnabled(true);
+        
+        try {
+            llenarComboEditar(false);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Computadoras_table.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
@@ -345,7 +365,7 @@ public class Computadoras_table extends javax.swing.JFrame {
             this.loadData();
             this.guardar.setEnabled(true);
             this.cancelar.setEnabled(true);
-            llenarComboEditar();
+            llenarComboEditar(true);
             this.lab_combo.setSelectedItem(new Laboratorios(indice));
         } catch (DAO_exception ex) {
             Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
@@ -373,6 +393,7 @@ public class Computadoras_table extends javax.swing.JFrame {
 
         if(computadora.getId() == null){
             try {
+                
                 managerP.getComputadoras_interface().insertar(computadora);
             } catch (DAO_exception ex) {
                 Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
