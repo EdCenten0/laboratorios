@@ -127,37 +127,6 @@ public class Computadoras {
     }
    
     
-    
-//    public static class Computadora_en_laboratorio{
-//        private Long id;
-//        private String nombre_laboratorio;
-//
-//        public Computadora_en_laboratorio() {
-//        }
-//
-//        public Computadora_en_laboratorio(Long id, String nombre_laboratorio) {
-//            this.id = id;
-//            this.nombre_laboratorio = nombre_laboratorio;
-//        }
-//
-//        public Long getId() {
-//            return id;
-//        }
-//
-//        public void setId(Long id) {
-//            this.id = id;
-//        }
-//
-//        public String getNombre_laboratorio() {
-//            return nombre_laboratorio;
-//        }
-//
-//        public void setNombre_laboratorio(String nombre_laboratorio) {
-//            this.nombre_laboratorio = nombre_laboratorio;
-//        }
-//        
-//        
-//    }
 
 
     

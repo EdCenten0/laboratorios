@@ -42,6 +42,7 @@ public class Dt_computadoras implements Computadoras_interface{
             stat.setString(1, c.getProcesador_computadora());
             stat.setString(2, c.getRam_computadora());
             stat.setString(3, c.getAlmacenamiento_computadora());
+            stat.setLong(4, c.getId_laboratorio());
             
             if(stat.executeUpdate() == 0){
                throw new DAO_exception("Puede que no se haya guardado");
@@ -68,6 +69,7 @@ public class Dt_computadoras implements Computadoras_interface{
             stat.setString(1, c.getProcesador_computadora());
             stat.setString(2, c.getRam_computadora());
             stat.setString(3, c.getAlmacenamiento_computadora());
+            stat.setLong(4, c.getId_laboratorio());
             
             stat.setLong(5, c.getId());
             if(stat.executeUpdate()==0){

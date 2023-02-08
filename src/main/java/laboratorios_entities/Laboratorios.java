@@ -4,6 +4,8 @@
  */
 package laboratorios_entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author cchav
@@ -15,6 +17,20 @@ public class Laboratorios {
     public Laboratorios() {
     }
 
+    public Laboratorios(Long id) {
+        this.id = id;
+    }
+    
+    
+    
+
+    public Laboratorios(Long id, String nombre_laboratorio) {
+        this.id = id;
+        this.nombre_laboratorio = nombre_laboratorio;
+    }
+
+    
+    
     public Laboratorios(String nombre_laboratorio) {
         this.nombre_laboratorio = nombre_laboratorio;
     }
@@ -35,12 +51,33 @@ public class Laboratorios {
         this.nombre_laboratorio = nombre_laboratorio;
     }
 
-    @Override
+   @Override
     public String toString() {
-        return "Laboratorios{" + "id=" + id + ", nombre_laboratorio=" + nombre_laboratorio + '}';
+        return this.nombre_laboratorio;
     }
 
-    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Laboratorios other = (Laboratorios) obj;
+        return Objects.equals(this.id, other.id);
+    }
+
     
     
     
