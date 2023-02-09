@@ -83,9 +83,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.computadora.setAlmacenamiento_computadora(almacenamiento.getText());
         this.computadora.setRam_computadora(ram.getText());
         Integer idGot = lab_combo.getSelectedIndex();
-        if(idGot == -1){
-            System.out.println("j");
-        }else{
+        if(idGot != -1){
             this.computadora.setId_laboratorio(lab_combo.getItemAt(lab_combo.getSelectedIndex()).getId());
         }
         
