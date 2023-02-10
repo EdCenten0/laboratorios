@@ -52,7 +52,7 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.managerP = manager;
-        this.model = new ClasesPorProfesorTableModel(managerP.getClases_por_profesor_interface());
+        this.model = new ClasesPorProfesorTableModel(managerP.getClases_por_profesor_interface(),managerP.getProfesores_interface(),managerP.getClases_interface());
         this.model.updateModel();
         this.table.setModel(model);
         this.table.getSelectionModel().addListSelectionListener(e -> {
