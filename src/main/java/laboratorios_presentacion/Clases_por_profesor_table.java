@@ -5,6 +5,10 @@
 package laboratorios_presentacion;
 
 import java.awt.Frame;
+import laboratorios_DAO.DAO_exception;
+import laboratorios_entities.Clases;
+import laboratorios_entities.Clases_por_profesor;
+import laboratorios_entities.Profesores;
 import laboratorios_interface_DAO.DAOManager;
 
 /**
@@ -16,9 +20,47 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
     
     private DAOManager managerP;
     private ClasesPorProfesorTableModel model;
+    private Clases_por_profesor clases_por_profesor;
+    private boolean editable;
+
+    public Clases_por_profesor getClases_por_profesor() {
+        return clases_por_profesor;
+    }
+
+    public void setClases_por_profesor(Clases_por_profesor clases_por_profesor) {
+        this.clases_por_profesor = clases_por_profesor;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
     
-    public Clases_por_profesor_table() {
+    public void saveData(){
+        if(this.clases_por_profesor == null){
+            this.clases_por_profesor = new Clases_por_profesor();
+        }
+        
+        
+    }
+    
+    
+    public Clases_por_profesor_table(DAOManager manager) throws DAO_exception {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.managerP = manager;
+        this.model = new ClasesPorProfesorTableModel(managerP.getClases_por_profesor_interface());
+        this.model.updateModel();
+        this.table.setModel(model);
+        this.table.getSelectionModel().addListSelectionListener(e -> {
+            boolean seleccionValida = (table.getSelectedRow() != -1);
+            this.editar.setEnabled(true);
+            this.borrar.setEnabled(true);
+        });
+        
     }
 
    
@@ -196,17 +238,17 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_exitMouseClicked
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-        this.setComputadora(null);
-        this.loadData();
-        this.setEditable(true);
-        guardar.setEnabled(true);
-        cancelar.setEnabled(true);
-
-        try {
-            llenarComboEditar(false);
-        } catch (DAO_exception ex) {
-            Logger.getLogger(Computadoras_table.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        this.setComputadora(null);
+//        this.loadData();
+//        this.setEditable(true);
+//        guardar.setEnabled(true);
+//        cancelar.setEnabled(true);
+//
+//        try {
+//            llenarComboEditar(false);
+//        } catch (DAO_exception ex) {
+//            Logger.getLogger(Computadoras_table.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
@@ -216,80 +258,80 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
         lab_combo.removeAllItems();
-        try {
-            Computadoras computadora = getComputadoraSeleccionado();
-            Long indice = getComputadoraSeleccionado().getId_laboratorio();
-            this.setComputadora(computadora);
-            this.setEditable(true);
-            this.loadData();
-            this.guardar.setEnabled(true);
-            this.cancelar.setEnabled(true);
-            llenarComboEditar(true);
-            this.lab_combo.setSelectedItem(new Laboratorios(indice));
-        } catch (DAO_exception ex) {
-            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+//        try {
+//            Computadoras computadora = getComputadoraSeleccionado();
+//            Long indice = getComputadoraSeleccionado().getId_laboratorio();
+//            this.setComputadora(computadora);
+//            this.setEditable(true);
+//            this.loadData();
+//            this.guardar.setEnabled(true);
+//            this.cancelar.setEnabled(true);
+//            llenarComboEditar(true);
+//            this.lab_combo.setSelectedItem(new Laboratorios(indice));
+//        } catch (DAO_exception ex) {
+//            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
     }//GEN-LAST:event_editarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
 
-        if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar las clase?","Borrar Clase", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-            try {
-                Computadoras computadora = getComputadoraSeleccionado();
-                managerP.getComputadoras_interface().eliminar(computadora);
-                model.updateModel();
-                model.fireTableDataChanged();
-            } catch (DAO_exception ex) {
-                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar las clase?","Borrar Clase", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+//            try {
+//                Computadoras computadora = getComputadoraSeleccionado();
+//                managerP.getComputadoras_interface().eliminar(computadora);
+//                model.updateModel();
+//                model.fireTableDataChanged();
+//            } catch (DAO_exception ex) {
+//                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
     }//GEN-LAST:event_borrarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         saveData();
-        Computadoras computadora = getComputadora();
-
-        if(computadora.getId() == null){
-            try {
-
-                managerP.getComputadoras_interface().insertar(computadora);
-            } catch (DAO_exception ex) {
-                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            try {
-                managerP.getComputadoras_interface().modificar(computadora);
-            } catch (DAO_exception ex) {
-                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        this.loadData();
-        this.procesador.setText("");
-        this.ram.setText("");
-        this.almacenamiento.setText("");
-        //        this.lab_combo.set
-        editar.setEnabled(false);
-        cancelar.setEnabled(false);
-        guardar.setEnabled(false);
-        borrar.setEnabled(false);
-        setEditable(false);
-
-        try {
-            model.updateModel();
-            model.fireTableDataChanged();
-        } catch (DAO_exception ex) {
-            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Computadoras computadora = getComputadora();
+//
+//        if(computadora.getId() == null){
+//            try {
+//
+//                managerP.getComputadoras_interface().insertar(computadora);
+//            } catch (DAO_exception ex) {
+//                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }else{
+//            try {
+//                managerP.getComputadoras_interface().modificar(computadora);
+//            } catch (DAO_exception ex) {
+//                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        this.loadData();
+//        this.procesador.setText("");
+//        this.ram.setText("");
+//        this.almacenamiento.setText("");
+//        //        this.lab_combo.set
+//        editar.setEnabled(false);
+//        cancelar.setEnabled(false);
+//        guardar.setEnabled(false);
+//        borrar.setEnabled(false);
+//        setEditable(false);
+//
+//        try {
+//            model.updateModel();
+//            model.fireTableDataChanged();
+//        } catch (DAO_exception ex) {
+//            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         this.lab_combo.removeAllItems();
     }//GEN-LAST:event_guardarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
-        this.loadData();
-        this.procesador.setText("");
-        this.ram.setText("");
-        this.almacenamiento.setText("");
+//        this.loadData();
+//        this.procesador.setText("");
+//        this.ram.setText("");
+//        this.almacenamiento.setText("");
 
         editar.setEnabled(false);
         cancelar.setEnabled(false);
@@ -311,8 +353,8 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<Laboratorios> lab_combo;
-    private javax.swing.JComboBox<Laboratorios> lab_combo1;
+    private javax.swing.JComboBox<Profesores> lab_combo;
+    private javax.swing.JComboBox<Clases> lab_combo1;
     private javax.swing.JButton nuevo;
     private javax.swing.JPanel panel_inf;
     private javax.swing.JPanel panel_principal;

@@ -27,6 +27,13 @@ public class Dt_clases_por_profesor implements Clases_por_profesor_interface{
     final String GETONE = "SELECT * FROM laboratorios.clases_por_profesor WHERE id = ?";     
     private Connection conn;
 
+    public Dt_clases_por_profesor(Connection conn) {
+        this.conn = conn;
+    }
+
+    
+    
+    
     @Override
     public void insertar(Clases_por_profesor c) throws DAO_exception{
         PreparedStatement stat = null;

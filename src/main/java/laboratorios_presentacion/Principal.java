@@ -286,6 +286,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void clases_por_profesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clases_por_profesorActionPerformed
         // TODO add your handling code here:
+        Clases_por_profesor_table clases_por_profesor_table = null;
+        
+        try {
+            clases_por_profesor_table = new Clases_por_profesor_table(manager);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        clases_por_profesor_table.setVisible(true);
     }//GEN-LAST:event_clases_por_profesorActionPerformed
 
     /**

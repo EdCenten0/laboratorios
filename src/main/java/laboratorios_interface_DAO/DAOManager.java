@@ -16,4 +16,8 @@ public interface DAOManager {
     Laboratorios_interface getLaboratorios_interface();
     
     Profesores_interface getProfesores_interface();
+    
+    Clases_por_laboratorio_interface getClases_por_laboratorio_interface();
+    
+    Clases_por_profesor_interface getClases_por_profesor_interface();
 }

@@ -23,19 +23,9 @@ public class Computadoras_table extends javax.swing.JFrame {
     
     private DAOManager managerP;
     private ComputadorasTableModel model;
-    private ComputadorasComboModel modelC;
     private Computadoras computadora;
     private boolean editable;
 
-    public ComputadorasComboModel getModelC() {
-        return modelC;
-    }
-
-    public void setModelC(ComputadorasComboModel modelC) throws DAO_exception {
-        this.modelC = modelC;
-        
-        
-    }
     
     
 
