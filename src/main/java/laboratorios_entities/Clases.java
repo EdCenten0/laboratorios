@@ -4,6 +4,8 @@
  */
 package laboratorios_entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author cchav
@@ -24,6 +26,21 @@ public class Clases {
         
     }
 
+    public Clases(Long id) {
+        this.id = id;
+    }
+    
+    
+
+    public Clases(Long id, String codigo_clase, String nombre_clase) {
+        this.id = id;
+        this.codigo_clase = codigo_clase;
+        this.nombre_clase = nombre_clase;
+    }
+
+    
+    
+    
     public Clases(String codigo_clase, String nombre_clase, int cantidad_estudiantes_clase, int cantidad_creditos) {
         this.codigo_clase = codigo_clase;
         this.nombre_clase = nombre_clase;
@@ -104,11 +121,34 @@ public class Clases {
         this.nombre_profesor = nombre_profesor;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clases other = (Clases) obj;
+        return Objects.equals(this.id, other.id);
+    }
+
+    
     
     
     @Override
     public String toString() {
-        return "Clases{" + "id=" + id + ", codigo_clase=" + codigo_clase + ", nombre_clase=" + nombre_clase + ", cantidad_estudiantes_clase=" + cantidad_estudiantes_clase + ", cantidad_creditos=" + cantidad_creditos + '}';
+        return this.nombre_clase + " -- " + this.codigo_clase;
     }
 
     

@@ -251,7 +251,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JComboBox" name="lab_combo">
+        <Component class="javax.swing.JComboBox" name="profesor_combo">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Profesores&gt;"/>
           </AuxValues>
@@ -277,7 +277,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JComboBox" name="lab_combo1">
+        <Component class="javax.swing.JComboBox" name="clases_combo">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Clases&gt;"/>
           </AuxValues>

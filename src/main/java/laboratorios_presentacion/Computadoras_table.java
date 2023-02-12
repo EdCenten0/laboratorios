@@ -363,7 +363,7 @@ public class Computadoras_table extends javax.swing.JFrame {
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
 
-        if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar las clase?","Borrar Clase", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+        if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar la computadora?","Borrar computadora", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
             try {
                 Computadoras computadora = getComputadoraSeleccionado();
                 managerP.getComputadoras_interface().eliminar(computadora);
@@ -397,7 +397,7 @@ public class Computadoras_table extends javax.swing.JFrame {
         this.procesador.setText("");
         this.ram.setText("");
         this.almacenamiento.setText("");
-//        this.lab_combo.set
+//      
         editar.setEnabled(false);
         cancelar.setEnabled(false);
         guardar.setEnabled(false);

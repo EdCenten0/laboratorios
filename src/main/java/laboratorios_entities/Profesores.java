@@ -4,12 +4,14 @@
  */
 package laboratorios_entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author cchav
  */
 public class Profesores {
-    private Long id = null;
+    private Long id;
     private String nombre_profesor;
     private String apellido_profesor;
     private String codigo_profesor;
@@ -17,6 +19,21 @@ public class Profesores {
     public Profesores() {
     }
 
+    public Profesores(Long id) {
+        this.id = id;
+    }
+
+    
+    
+    public Profesores(Long id, String nombre_profesor, String apellido_profesor, String codigo_profesor) {
+        this.id = id;
+        this.nombre_profesor = nombre_profesor;
+        this.apellido_profesor = apellido_profesor;
+        this.codigo_profesor = codigo_profesor;
+    }
+
+    
+    
     public Profesores(String nombre_profesor, String apellido_profesor, String codigo_profesor) {
         this.nombre_profesor = nombre_profesor;
         this.apellido_profesor = apellido_profesor;
@@ -57,7 +74,29 @@ public class Profesores {
 
     @Override
     public String toString() {
-        return "Profesores{" + "id=" + id + ", nombre_profesor=" + nombre_profesor + ", apellido_profesor=" + apellido_profesor + ", codigo_profesor=" + codigo_profesor + '}';
+        return this.nombre_profesor + " " + this.apellido_profesor;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Profesores other = (Profesores) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     

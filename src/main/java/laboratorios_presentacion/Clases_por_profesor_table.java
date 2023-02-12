@@ -5,6 +5,10 @@
 package laboratorios_presentacion;
 
 import java.awt.Frame;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import laboratorios_DAO.DAO_exception;
 import laboratorios_entities.Clases;
 import laboratorios_entities.Clases_por_profesor;
@@ -44,8 +48,56 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
             this.clases_por_profesor = new Clases_por_profesor();
         }
         
+        Integer idGot = clases_combo.getSelectedIndex();
+        Integer idGot2 = profesor_combo.getSelectedIndex();
+        if(idGot != -1 && idGot2 != -1){
+            this.clases_por_profesor.setId_profesor(profesor_combo.getItemAt(profesor_combo.getSelectedIndex()).getId());
+            this.clases_por_profesor.setId_clase(clases_combo.getItemAt(clases_combo.getSelectedIndex()).getId());
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "No puede dejar campos vacíos");
+        }
+        
         
     }
+    
+    
+    private void llenarComboClase(boolean selected) throws DAO_exception{
+        List<Clases> clasesList = managerP.getClases_interface().obtenerTodos();
+        this.clases_combo.removeAllItems();
+        
+        if(selected){
+            for(int i = 0; i < clasesList.size(); i++){
+                clases_combo.addItem(new Clases(clasesList.get(i).getId(), clasesList.get(i).getCodigo_clase(), clasesList.get(i).getNombre_clase()));
+            }
+        }else{
+            clases_combo.addItem(null);
+            for(int i = 0; i < clasesList.size(); i++){
+                clases_combo.addItem(new Clases(clasesList.get(i).getId(), clasesList.get(i).getCodigo_clase(), clasesList.get(i).getNombre_clase()));
+            }
+        }
+    }
+    
+    private void llenarComboProfesor(boolean selected) throws DAO_exception{
+        List<Profesores> profesoresList = managerP.getProfesores_interface().obtenerTodos();
+        this.profesor_combo.removeAllItems();
+        
+        if(selected){
+            for(int i = 0; i < profesoresList.size(); i++){
+                profesor_combo.addItem(new Profesores(profesoresList.get(i).getId(), profesoresList.get(i).getNombre_profesor(), profesoresList.get(i).getApellido_profesor(), profesoresList.get(i).getCodigo_profesor()));
+            }
+        }else{
+            profesor_combo.addItem(null);
+            for(int i = 0; i < profesoresList.size(); i++){
+                profesor_combo.addItem(new Profesores(profesoresList.get(i).getId(), profesoresList.get(i).getNombre_profesor(), profesoresList.get(i).getApellido_profesor(), profesoresList.get(i).getCodigo_profesor()));
+            }
+        }
+    }
+    
+    private Clases_por_profesor getClasePorProfesorSeleccionado() throws DAO_exception{
+        Long id = (Long) table.getValueAt(table.getSelectedRow(), 0);
+        return managerP.getClases_por_profesor_interface().obtener(id);
+    }
+    
     
     
     public Clases_por_profesor_table(DAOManager manager) throws DAO_exception {
@@ -80,9 +132,9 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
         borrar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
-        lab_combo = new javax.swing.JComboBox<>();
+        profesor_combo = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        lab_combo1 = new javax.swing.JComboBox<>();
+        clases_combo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,13 +251,13 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
             }
         });
         panel_principal.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
-        panel_principal.add(lab_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 190, -1));
+        panel_principal.add(profesor_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 190, -1));
 
         jLabel4.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(46, 46, 46));
         jLabel4.setText("Clase:");
         panel_principal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
-        panel_principal.add(lab_combo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 190, -1));
+        panel_principal.add(clases_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,92 +290,89 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_exitMouseClicked
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-//        this.setComputadora(null);
-//        this.loadData();
-//        this.setEditable(true);
-//        guardar.setEnabled(true);
-//        cancelar.setEnabled(true);
-//
-//        try {
-//            llenarComboEditar(false);
-//        } catch (DAO_exception ex) {
-//            Logger.getLogger(Computadoras_table.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        this.setClases_por_profesor(null);
+        guardar.setEnabled(true);
+        cancelar.setEnabled(true);
+        
+        try {
+            llenarComboClase(false);
+            llenarComboProfesor(false);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Clases_por_profesor_table.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMouseClicked
-        // TODO add your handling code here:
+        
 
     }//GEN-LAST:event_editarMouseClicked
 
     private void editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarActionPerformed
-        lab_combo.removeAllItems();
-//        try {
-//            Computadoras computadora = getComputadoraSeleccionado();
-//            Long indice = getComputadoraSeleccionado().getId_laboratorio();
-//            this.setComputadora(computadora);
-//            this.setEditable(true);
-//            this.loadData();
-//            this.guardar.setEnabled(true);
-//            this.cancelar.setEnabled(true);
-//            llenarComboEditar(true);
-//            this.lab_combo.setSelectedItem(new Laboratorios(indice));
-//        } catch (DAO_exception ex) {
-//            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
+        clases_combo.removeAllItems();
+        profesor_combo.removeAllItems();
+        try {
+            Clases_por_profesor clases_por_profesor = new Clases_por_profesor();
+            clases_por_profesor.setId(getClasePorProfesorSeleccionado().getId());
+            clases_por_profesor.setId_clase(getClasePorProfesorSeleccionado().getId_clase());
+            clases_por_profesor.setId_profesor(getClasePorProfesorSeleccionado().getId_profesor());
+            this.setClases_por_profesor(clases_por_profesor);
+            this.guardar.setEnabled(true);
+            this.cancelar.setEnabled(true);
+            llenarComboClase(false);
+            llenarComboProfesor(false);
+            this.clases_combo.setSelectedItem(new Clases(clases_por_profesor.getId_clase()));
+            this.profesor_combo.setSelectedItem(new Profesores(clases_por_profesor.getId_profesor()));
+            
+            
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_editarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
 
-//        if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar las clase?","Borrar Clase", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-//            try {
-//                Computadoras computadora = getComputadoraSeleccionado();
-//                managerP.getComputadoras_interface().eliminar(computadora);
-//                model.updateModel();
-//                model.fireTableDataChanged();
-//            } catch (DAO_exception ex) {
-//                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        if(JOptionPane.showConfirmDialog(rootPane, "Seguro que quieres borrar las clase?","Borrar Clase", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            try {
+                Clases_por_profesor clases_por_profesor = getClasePorProfesorSeleccionado();
+                managerP.getClases_por_profesor_interface().eliminar(clases_por_profesor);
+                model.updateModel();
+                model.fireTableDataChanged();
+            } catch (DAO_exception ex) {
+                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_borrarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         saveData();
-//        Computadoras computadora = getComputadora();
-//
-//        if(computadora.getId() == null){
-//            try {
-//
-//                managerP.getComputadoras_interface().insertar(computadora);
-//            } catch (DAO_exception ex) {
-//                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }else{
-//            try {
-//                managerP.getComputadoras_interface().modificar(computadora);
-//            } catch (DAO_exception ex) {
-//                Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        this.loadData();
-//        this.procesador.setText("");
-//        this.ram.setText("");
-//        this.almacenamiento.setText("");
-//        //        this.lab_combo.set
-//        editar.setEnabled(false);
-//        cancelar.setEnabled(false);
-//        guardar.setEnabled(false);
-//        borrar.setEnabled(false);
-//        setEditable(false);
-//
-//        try {
-//            model.updateModel();
-//            model.fireTableDataChanged();
-//        } catch (DAO_exception ex) {
-//            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        this.lab_combo.removeAllItems();
+        Clases_por_profesor clases_por_profesor = getClases_por_profesor();
+        
+        if(clases_por_profesor.getId() == null){
+            try {
+                managerP.getClases_por_profesor_interface().insertar(clases_por_profesor);
+            } catch (DAO_exception ex) {
+                Logger.getLogger(Clases_por_profesor_table.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            try {
+                managerP.getClases_por_profesor_interface().modificar(clases_por_profesor);
+            } catch (DAO_exception ex) {
+                Logger.getLogger(Clases_por_profesor_table.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        editar.setEnabled(false);
+        cancelar.setEnabled(false);
+        guardar.setEnabled(false);
+        borrar.setEnabled(false);
+        try {
+            model.updateModel();
+            model.fireTableDataChanged();
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Clases_table.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.clases_combo.removeAllItems();
+        this.profesor_combo.removeAllItems();
     }//GEN-LAST:event_guardarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -337,7 +386,7 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
         cancelar.setEnabled(false);
         guardar.setEnabled(false);
         borrar.setEnabled(false);
-        lab_combo.removeAllItems();
+        profesor_combo.removeAllItems();
         setEditable(false);
     }//GEN-LAST:event_cancelarActionPerformed
 
@@ -348,16 +397,16 @@ public class Clases_por_profesor_table extends javax.swing.JFrame {
     private javax.swing.JLabel btn_exit;
     private javax.swing.JLabel btn_min;
     private javax.swing.JButton cancelar;
+    private javax.swing.JComboBox<Clases> clases_combo;
     private javax.swing.JButton editar;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<Profesores> lab_combo;
-    private javax.swing.JComboBox<Clases> lab_combo1;
     private javax.swing.JButton nuevo;
     private javax.swing.JPanel panel_inf;
     private javax.swing.JPanel panel_principal;
+    private javax.swing.JComboBox<Profesores> profesor_combo;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
