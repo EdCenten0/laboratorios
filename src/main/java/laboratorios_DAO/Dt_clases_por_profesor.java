@@ -4,7 +4,7 @@
  */
 package laboratorios_DAO;
 
-import com.mysql.cj.protocol.Resultset;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -120,7 +120,7 @@ public class Dt_clases_por_profesor implements Clases_por_profesor_interface{
 
     @Override
     public List<Clases_por_profesor> obtenerTodos() throws DAO_exception {
-         PreparedStatement stat = null;
+        PreparedStatement stat = null;
         ResultSet rs = null;
         List<Clases_por_profesor> c = new ArrayList<>();
         try {

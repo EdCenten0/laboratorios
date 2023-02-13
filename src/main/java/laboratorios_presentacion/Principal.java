@@ -63,6 +63,7 @@ public class Principal extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         clases_por_profesor = new javax.swing.JButton();
+        clases_por_laboratorio = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -102,7 +103,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 260, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 260, 40));
 
         jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(39, 39, 39));
@@ -117,7 +118,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 260, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 260, 40));
 
         jButton5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(39, 39, 39));
@@ -132,7 +133,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 260, 40));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 260, 40));
 
         jButton6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(39, 39, 39));
@@ -147,7 +148,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 260, 40));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 260, 40));
 
         clases_por_profesor.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         clases_por_profesor.setForeground(new java.awt.Color(39, 39, 39));
@@ -162,7 +163,22 @@ public class Principal extends javax.swing.JFrame {
                 clases_por_profesorActionPerformed(evt);
             }
         });
-        jPanel1.add(clases_por_profesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 260, 40));
+        jPanel1.add(clases_por_profesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 260, 40));
+
+        clases_por_laboratorio.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        clases_por_laboratorio.setForeground(new java.awt.Color(39, 39, 39));
+        clases_por_laboratorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1f.png"))); // NOI18N
+        clases_por_laboratorio.setText("Clases por laboratorio");
+        clases_por_laboratorio.setFocusPainted(false);
+        clases_por_laboratorio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clases_por_laboratorio.setRolloverEnabled(true);
+        clases_por_laboratorio.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btn1_pressed.png"))); // NOI18N
+        clases_por_laboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clases_por_laboratorioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clases_por_laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 260, 40));
 
         panel1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 790, 320));
 
@@ -297,12 +313,26 @@ public class Principal extends javax.swing.JFrame {
         clases_por_profesor_table.setVisible(true);
     }//GEN-LAST:event_clases_por_profesorActionPerformed
 
+    private void clases_por_laboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clases_por_laboratorioActionPerformed
+        // TODO add your handling code here:
+        Clases_por_laboratorio_table clases_por_laboratorio_table = null;
+        
+        try {
+            clases_por_laboratorio_table = new Clases_por_laboratorio_table(manager);
+        } catch (DAO_exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        clases_por_laboratorio_table.setVisible(true);
+    }//GEN-LAST:event_clases_por_laboratorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton clases_por_laboratorio;
     private javax.swing.JButton clases_por_profesor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

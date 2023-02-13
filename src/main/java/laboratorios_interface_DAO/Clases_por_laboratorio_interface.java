@@ -10,6 +10,6 @@ import laboratorios_entities.Clases_por_laboratorio;
  *
  * @author cchav
  */
-public interface Clases_por_laboratorio_interface extends DAO<Clases, Clases>{
+public interface Clases_por_laboratorio_interface extends DAO<Clases_por_laboratorio, Long>{
     
 }

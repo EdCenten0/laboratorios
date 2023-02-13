@@ -89,10 +89,10 @@ public class MySQL_DAO_manager implements DAOManager{
 
     @Override
     public Clases_por_laboratorio_interface getClases_por_laboratorio_interface() {
-//        if (clases_por_laboratorio == null){
-//            clases_por_laboratorio = new Dt_clases_por_laboratorio(conn);
-//        }
-//        
+        if (clases_por_laboratorio == null){
+            clases_por_laboratorio = new Dt_clases_por_laboratorio(conn);
+        }
+        
         return clases_por_laboratorio;
         
     }
@@ -105,4 +105,6 @@ public class MySQL_DAO_manager implements DAOManager{
         
         return clases_por_profesor;
     }
+    
+    
 }
